@@ -78,10 +78,12 @@ def seleccionar_modo(ip):
 
 # Ejemplo de uso
 if __name__ == "__main__":
+    print("\n-------------------------------------------------------------------")
     direccion_ip = input(Fore.YELLOW + "Introduce la dirección IP a escanear: " + Style.RESET_ALL)
     puerto_inicio, puerto_fin, timeout = seleccionar_modo(direccion_ip)
     resultados = escanear_puertos(direccion_ip, puerto_inicio, puerto_fin, timeout)
 
+    print("\n-------------------------------------------------------------------")
     print(Fore.CYAN + "\nSelecciona el formato del reporte:" + Style.RESET_ALL)
     print("1. HTML")
     print("2. CSV")
