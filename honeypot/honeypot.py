@@ -24,7 +24,10 @@ def connect_to_server(host, port, really_connect):
     except socket.timeout:
         print(Fore.RED + "Connection to the Honeypot server timed out." + Style.RESET_ALL)
     return None, 0
-   
+
+def disconnect_server(client_socket):
+    client_socket.sendall("DISCONNECT".encode())  # Envía el mensaje
+    client_socket.close()  # Cierra el socket
 
 def connect_honeypot(host="localhost", port=8080):
     client_socket = None  # Inicializa el socket del cliente como None
@@ -42,8 +45,7 @@ def connect_honeypot(host="localhost", port=8080):
             client_socket, really_connect = connect_to_server(host, port, really_connect)
         elif option_honeypot == "2":
             if really_connect == 1:
-                client_socket.sendall("DISCONNECT".encode())  # Envía el mensaje
-                client_socket.close()  # Cierra el socket
+                disconnect_server(client_socket)
             else:
                 print(Fore.RED + "You are not connected to the Honeypot server." + Style.RESET_ALL)
             break
