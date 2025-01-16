@@ -1,0 +1,14 @@
+# Ignorar carpetas de Python
+__pycache__/
+*.pyc
+
+# Ignorar archivos de logs
+logs/
+
+# Ignorar configuraciones del entorno virtual
+venv/
+.env
+
+# Ignorar configuraciones del editor
+.vscode/
+*.swp
