@@ -1,5 +1,6 @@
 import os
 from colorama import Fore, Style
+import datetime
 
 def welcome_message():
         print("""
@@ -33,5 +34,12 @@ def create_log_directory():
 
 def print_underline():
     print(Fore.YELLOW + "\n---------------------------------------------------------------------" + Style.RESET_ALL)
+
+# Función para escribir en el log
+def write_log(event_type, message):
+    os.makedirs("Logs", exist_ok=True)  # Crea la carpeta si no existe
+    with open("Logs/logs.txt", "a") as log_file:
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        log_file.write(f"[{timestamp}] EVENT: {event_type} - {message}\n")
 
 

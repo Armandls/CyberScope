@@ -17,7 +17,7 @@ def generate_report_html(resultados, ip):
     print(Fore.CYAN + f"HTML report generated: {nombre_archivo}" + Style.RESET_ALL)
 
 def generate_report_csv(resultados, ip):
-    crear_directorio_logs()
+    create_log_directory()
     nombre_archivo = f"logs/reporte_{ip.replace('.', '_')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
     with open(nombre_archivo, "w", newline="") as archivo:
         escritor = csv.writer(archivo)

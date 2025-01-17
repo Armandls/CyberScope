@@ -1,4 +1,3 @@
-import socket
 from colorama import Fore, Style, init
 from utils.utils import welcome_message, print_underline
 from scanner.scanner import scanner
