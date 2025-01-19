@@ -47,10 +47,13 @@ CyberScope/ ├── Client/ │ ├── main.py # Cliente para interactuar c
    cd CyberScope
 
 2. Instala las dependencias:
+    ```bash
     pip install -r requirements.txt
 
 3. Inicia el servidor:
+    ```bash
     python Server/server.py
 
 4. Ejecuta el cliente:
+    ```bash
     python Client/main.py
