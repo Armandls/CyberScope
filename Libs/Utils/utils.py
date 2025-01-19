@@ -44,7 +44,7 @@ def print_incorrect():
 """ + Style.RESET_ALL)
      
 def print_goodbye():
-    print(Fore.LIGHTGREEN_EX + """
+    print(Fore.LIGHTRED_EX + """
           
 
 ░░      ░░░      ░░░      ░░       ░░       ░░  ░░░░  ░        ░

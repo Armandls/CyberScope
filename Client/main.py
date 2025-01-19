@@ -1,6 +1,7 @@
 import sys
 import os
 from colorama import Fore, Style, init
+from getpass import getpass  # Importa getpass para capturar contraseñas de forma oculta
 
 # Añade el directorio padre al PATH
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -31,14 +32,14 @@ def connect_honeypot():
             host = input(Fore.YELLOW + "\nFTP Server Address: " + Style.RESET_ALL).strip()
             port = int(input(Fore.YELLOW + "FTP Port (default 21): " + Style.RESET_ALL).strip() or 21)
             username = input(Fore.YELLOW + "FTP Username: " + Style.RESET_ALL).strip()
-            password = input(Fore.YELLOW + "FTP Password: " + Style.RESET_ALL).strip()
+            password = getpass(Fore.YELLOW + "FTP Password: " + Style.RESET_ALL)  # Usa getpass para la contraseña
             connect_ftp_server(host, port, username, password)
         elif choice == "2":
             print_underline()
             host = input(Fore.YELLOW + "\nSSH Server Address: " + Style.RESET_ALL).strip()
             port = int(input(Fore.YELLOW + "SSH Port (default 22): " + Style.RESET_ALL).strip() or 22)
             username = input(Fore.YELLOW + "SSH Username: " + Style.RESET_ALL).strip()
-            password = input(Fore.YELLOW + "SSH Password: " + Style.RESET_ALL).strip()
+            password = getpass(Fore.YELLOW + "SSH Password: " + Style.RESET_ALL)  # Usa getpass para la contraseña
             connect_ssh_server(host, port, username, password)
         elif choice == "3":
             print_incorrect()

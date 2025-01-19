@@ -1,3 +1,4 @@
+import os
 import socket
 from colorama import Fore, Style
 from ftplib import FTP
@@ -47,14 +48,19 @@ def connect_ftp_server(host, port, username, password):
                 ftp.retrlines("LIST")
             elif command.lower().startswith("get "):
                 filename = command.split(" ", 1)[1]
-                with open(filename, "wb") as file:
+                local_path = os.path.join("Files", filename)
+                with open(local_path, "wb") as file:
                     ftp.retrbinary(f"RETR {filename}", file.write)
-                print(Fore.GREEN + f"Downloaded {filename}" + Style.RESET_ALL)
+                print(Fore.GREEN + f"Downloaded {filename} to {local_path}" + Style.RESET_ALL)
             elif command.lower().startswith("put "):
                 filename = command.split(" ", 1)[1]
-                with open(filename, "rb") as file:
-                    ftp.storbinary(f"STOR {filename}", file)
-                print(Fore.GREEN + f"Uploaded {filename}" + Style.RESET_ALL)
+                local_path = os.path.join("Files", filename)
+                if os.path.exists(local_path):
+                    with open(local_path, "rb") as file:
+                        ftp.storbinary(f"STOR {filename}", file)
+                    print(Fore.GREEN + f"Uploaded {filename} from {local_path}" + Style.RESET_ALL)
+                else:
+                    print(Fore.RED + f"File {filename} not found in Files directory." + Style.RESET_ALL)
             else:
                 print(Fore.LIGHTRED_EX + "Unknown FTP command." + Style.RESET_ALL)
     except Exception:
