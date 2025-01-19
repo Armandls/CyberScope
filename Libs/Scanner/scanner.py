@@ -1,6 +1,7 @@
 import socket
 from colorama import Fore, Style
-from reporter.reporter import generate_report_html, generate_report_csv
+from Libs.Reporter.reporter import generate_report_html, generate_report_csv
+from Libs.Utils.utils import print_underline
 
 def scan_ports(ip, puerto_inicio, puerto_fin, timeout):
     print(f"\nEscaneando {ip} desde el puerto {puerto_inicio} hasta {puerto_fin}...")
@@ -38,6 +39,9 @@ def select_mode():
         return 20, 1024, 0.3
 
 def scanner():
+
+    print_underline()
+
     direccion_ip = input(Fore.YELLOW + "Enter the IP address to scan: " + Style.RESET_ALL)
     puerto_inicio, puerto_fin, timeout = select_mode()
     resultados = scan_ports(direccion_ip, puerto_inicio, puerto_fin, timeout)

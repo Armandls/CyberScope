@@ -1,8 +1,7 @@
-import os
 import csv
 from datetime import datetime
 from colorama import Fore, Style
-from utils.utils import create_log_directory
+from Libs.Utils.utils import create_log_directory
 
 def generate_report_html(resultados, ip):
     create_log_directory()
