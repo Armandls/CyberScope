@@ -34,15 +34,7 @@ Your IP address and activity have been logged.
 Any unauthorized attempt will be reported.
 Think carefully about your next move...⌛""" + Style.RESET_ALL)
     
-
-def print_incorrect():
-     print(Fore.LIGHTRED_EX + """
- ____ ____ ____ ____ ____ ____ ____ ____ ____ 
-||I |||N |||C |||O |||R |||R |||E |||C |||T ||
-||__|||__|||__|||__|||__|||__|||__|||__|||__||
-|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|/__\|
-""" + Style.RESET_ALL)
-     
+  
 def print_goodbye():
     print(Fore.LIGHTRED_EX + """
           

@@ -65,35 +65,3 @@ def connect_ftp_server(host, port, username, password):
                 print(Fore.LIGHTRED_EX + "Unknown FTP command." + Style.RESET_ALL)
     except Exception:
         print(Fore.LIGHTRED_EX + f"\nError connecting to FTP server." + Style.RESET_ALL)
-
-# Conexión y manejo de SSH
-def connect_ssh_server(host, port, username, password):
-    try:
-        client = paramiko.SSHClient()
-        client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        client.connect(hostname=host, port=port, username=username, password=password)
-        print(Fore.LIGHTGREEN_EX + "\nConnected to SSH server." + Style.RESET_ALL)
-
-        while True:
-            # Solicitar comando al usuario
-            command = input(Fore.CYAN + "SSH> " + Style.RESET_ALL).strip()
-            if command.lower() == "exit":
-                print(Fore.YELLOW + "Exiting SSH session." + Style.RESET_ALL)
-                break
-            
-            # Enviar el comando al servidor
-            stdin, stdout, stderr = client.exec_command(command)
-            
-            # Mostrar la salida del comando
-            output = stdout.read().decode()
-            error = stderr.read().decode()
-            if output:
-                print(Fore.GREEN + output + Style.RESET_ALL)
-            if error:
-                print(Fore.RED + error + Style.RESET_ALL)
-        
-        client.close()
-    except paramiko.AuthenticationException:
-        print(Fore.LIGHTRED_EX + "Authentication failed. Check your username and password." + Style.RESET_ALL)
-    except Exception:
-        print(Fore.LIGHTRED_EX + f"\nError connecting to SSH server." + Style.RESET_ALL)
