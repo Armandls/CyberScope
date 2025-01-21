@@ -41,7 +41,7 @@ def connect_ftp_server(host, port, username, password):
         while True:
             command = input(Fore.CYAN + "\nFTP> " + Style.RESET_ALL).strip()
             if command.lower() == "quit":
-                print(Fore.YELLOW + "Exiting FTP session." + Style.RESET_ALL)
+                print(Fore.LIGHTRED_EX + "Exiting FTP session." + Style.RESET_ALL)
                 ftp.quit()
                 break
             elif command.lower() == "ls":
