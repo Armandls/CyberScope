@@ -1,59 +1,74 @@
 # CyberScope
 
-CyberScope es un proyecto personal escalable diseñado para aprender y practicar ciberseguridad. Comienza con un escáner de puertos básico y se expande con funciones avanzadas como generación de informes, detección de servicios y una interfaz gráfica. Ideal para explorar herramientas y conceptos clave de manera progresiva.
+CyberScope is a scalable personal project designed for learning and practicing cybersecurity. It starts with a basic **port scanner** and expands with advanced features such as **FTP honeypot**, **password manager**, and **port scanning tools**. The project allows users to interact via the terminal for a more hands-on cybersecurity experience.
 
-## Funcionalidades principales
+## 🔥 Main Features
 
-### 1. Escáner de Puertos
-- Escaneo básico para identificar puertos abiertos en un rango especificado.
-- Detección de servicios asociados a puertos abiertos.
+### 1️⃣ **Port Scanner**
+- Scan a range of ports to detect open ones.
+- Identify active services running on open ports.
 
-### 2. Honeypot con soporte para FTP y SSH
-- **FTP:** Simulación de un servidor FTP con comandos básicos como `ls`, `get`, `put`, y `quit`. Los archivos se suben y descargan desde la carpeta `Files`.
-- **SSH:** Simulación de un servidor SSH que permite ejecutar comandos básicos como `ls`, `pwd`, y más.
+### 2️⃣ **Honeypot (FTP Simulation)**
+- Simulated FTP server that allows any user to log in without authentication.
+- Supports basic FTP commands: `ls`, `get`, `put`, and `quit`.
+- Files are uploaded/downloaded in the `Files/` directory.
+- Logs all activities, including login attempts and file transfers.
 
-### 3. Generación de Logs
-- Todos los eventos importantes, como conexiones, desconexiones y comandos ejecutados, se registran en el archivo `Logs/logs.txt`.
+### 3️⃣ **Password Manager**
+- Stores passwords securely using encryption (Fernet from `cryptography`).
+- Allows password retrieval and management.
+- Generates random strong passwords.
 
----
-
-## Estructura del Proyecto
-
-CyberScope/ ├── Client/ │ ├── main.py # Cliente para interactuar con el honeypot. │ ├── Libs/ │ │ ├── Communication/ │ │ │ └── communication.py # Manejo de conexiones SSH y FTP. │ │ ├── Scanner/ │ │ │ └── scanner.py # Escáner de puertos. │ │ ├── Utils/ │ │ └── utils.py # Funciones auxiliares. ├── Server/ │ └── server.py # Honeypot con soporte para FTP y SSH. ├── Logs/ │ └── logs.txt # Archivo de registro de eventos. └── Files/ # Carpeta donde se suben y descargan archivos (FTP).
-
----
-
-## Comandos Soportados
-
-### FTP
-1. **ls**: Listar los archivos disponibles en el servidor.
-2. **get `<archivo>`**: Descargar un archivo del servidor al cliente (guardado en la carpeta `Files`).
-3. **put `<archivo>`**: Subir un archivo desde el cliente al servidor (guardado en la carpeta `Files`).
-4. **quit**: Salir de la sesión FTP.
-
-### SSH
-1. **ls**: Listar los archivos disponibles en el servidor.
-2. **pwd**: Mostrar el directorio actual.
-3. **exit**: Salir de la sesión SSH.
-4. Otros comandos del sistema se ejecutan en el servidor.
+### 4️⃣ **Activity Logging & Detection**
+- Logs all relevant events (connections, disconnections, commands executed).
+- Detects **suspicious behavior** such as **port scans**, **rapid connections**, and **DoS attempts**.
+- Saves logs in `Logs/logs.txt`.
 
 ---
 
-## Instalación y Uso
+## 📌 **Supported Commands**
 
-1. Clona el repositorio:
-   ```bash
-   git clone https://github.com/usuario/CyberScope.git
-   cd CyberScope
+### **FTP**
+| Command        | Description |
+|---------------|-------------|
+| `ls`          | List available files on the server |
+| `get <file>`  | Download a file from the server (saved in `Files/`) |
+| `put <file>`  | Upload a file to the server |
+| `quit`        | Exit the FTP session |
 
-2. Instala las dependencias:
-    ```bash
-    pip install -r requirements.txt
+### **Port Scanner**
+| Command | Description |
+|---------|-------------|
+| `scan <IP> <port-range>` | Scans a given IP and port range for open ports |
 
-3. Inicia el servidor:
-    ```bash
-    python Server/server.py
+### **Password Manager**
+| Command            | Description |
+|--------------------|-------------|
+| `store`           | Save a new password securely |
+| `retrieve <site>` | Retrieve stored credentials for a site |
+| `generate`        | Generate a secure password |
 
-4. Ejecuta el cliente:
-    ```bash
-    python Client/main.py
+---
+
+## 🚀 **Installation & Usage**
+
+### **1️⃣ Clone the repository**
+```bash
+git clone https://github.com/yourusername/CyberScope.git
+cd CyberScope
+```
+
+### **2️⃣ Install dependencies**
+```bash
+pip install -r requirements.txt
+```
+
+### **3️⃣ Start the Honeypot FTP Server**
+```bash
+python Server/server.py
+```
+
+### **4️⃣ Run the Client Application**
+```bash
+python Client/main.py
+```
