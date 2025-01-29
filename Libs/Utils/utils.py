@@ -36,16 +36,12 @@ Think carefully about your next move...⌛""" + Style.RESET_ALL)
     
   
 def print_goodbye():
-    print(Fore.LIGHTRED_EX + """
-          
+    print_underline()
+    print(Fore.RED + "  👋 Goodbye! Thanks for using CyberScope!" + Style.RESET_ALL)
+    print(Fore.YELLOW + "  Remember: Security first, always! 🛡️" + Style.RESET_ALL)
+    print(Fore.BLUE + "  Follow best practices and stay updated! 🚀" + Style.RESET_ALL)
+    print_underline()
 
-░░      ░░░      ░░░      ░░       ░░       ░░  ░░░░  ░        ░
-▒  ▒▒▒▒▒▒▒  ▒▒▒▒  ▒  ▒▒▒▒  ▒  ▒▒▒▒  ▒  ▒▒▒▒  ▒▒  ▒▒  ▒▒  ▒▒▒▒▒▒▒
-▓  ▓▓▓   ▓  ▓▓▓▓  ▓  ▓▓▓▓  ▓  ▓▓▓▓  ▓       ▓▓▓▓    ▓▓▓      ▓▓▓
-█  ████  █  ████  █  ████  █  ████  █  ████  ████  ████  ███████
-██      ███      ███      ██       ██       █████  ████        █
-                                                                
-""" + Style.RESET_ALL)
 
 
 def create_log_directory():
