@@ -4,17 +4,17 @@ from Libs.Reporter.reporter import generate_report_html, generate_report_csv
 from Libs.Utils.utils import print_underline
 
 def scan_ports(ip, puerto_inicio, puerto_fin, timeout):
-    print(f"\nEscaneando {ip} desde el puerto {puerto_inicio} hasta {puerto_fin}...")
+    print(f"\nScanning {ip} from port {puerto_inicio} to {puerto_fin}...")
     resultados = []  # Lista para almacenar los resultados del escaneo
     for puerto in range(puerto_inicio, puerto_fin + 1):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # Crea un socket TCP con IPv4
         sock.settimeout(timeout)  # Establece el tiempo de espera
         resultado = sock.connect_ex((ip, puerto))  # connect_ex devuelve 0 si el puerto está abierto
         if resultado == 0:
-            print(Fore.GREEN + f"Puerto {puerto} está abierto" + Style.RESET_ALL)
-            resultados.append((puerto, "Abierto"))
+            print(Fore.GREEN + f"Port {puerto} is open" + Style.RESET_ALL)
+            resultados.append((puerto, "Open"))
         else:
-            resultados.append((puerto, "Cerrado"))
+            resultados.append((puerto, "Close"))
         sock.close()
     return resultados
 

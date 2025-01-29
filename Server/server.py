@@ -8,26 +8,22 @@ from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
 
-init()  # Inicializa colorama
+init() 
 
-# Constantes para la detección de comportamiento sospechoso
-MAX_CONNECTIONS = 10  # Máximo de conexiones permitidas por IP en un intervalo
-CONNECTION_TIME_WINDOW = 10  # Intervalo de tiempo en segundos
-COMMAND_THRESHOLD = 20  # Número máximo de comandos en un tiempo corto
-COMMAND_TIME_WINDOW = 10  # Ventana de tiempo para detección de comandos rápidos
+MAX_CONNECTIONS = 10  
+CONNECTION_TIME_WINDOW = 10 
+COMMAND_THRESHOLD = 20  
+COMMAND_TIME_WINDOW = 10  
 
-# Variables globales para rastrear actividad
-ip_connections = defaultdict(list)  # Registra conexiones por IP
-command_activity = defaultdict(list)  # Registra comandos por IP
+ip_connections = defaultdict(list)  
+command_activity = defaultdict(list) 
 
-# Función para escribir en el log
 def write_log(event_type, message):
-    os.makedirs("Logs", exist_ok=True)  # Crea la carpeta si no existe
+    os.makedirs("Logs", exist_ok=True) 
     with open("Logs/logs.txt", "a") as log_file:
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         log_file.write(f"[{timestamp}] EVENT: {event_type} - {message}\n")
 
-# Detección de actividad sospechosa
 def is_suspicious(ip, activity_log, threshold, time_window):
     """Detecta comportamiento sospechoso basado en actividad reciente."""
     now = datetime.now()
@@ -36,14 +32,12 @@ def is_suspicious(ip, activity_log, threshold, time_window):
 
     return len(activity_log[ip]) > threshold
 
-# Clase personalizada para manejar eventos del servidor FTP
 class CustomFTPHandler(FTPHandler):
     def on_connect(self):
         """Se llama cuando un cliente se conecta al servidor."""
         client_info = f"{self.remote_ip}:{self.remote_port}"
         write_log("CONNECT", f"Client connected: {client_info}")
 
-        # Detecta conexiones rápidas desde una IP
         if is_suspicious(self.remote_ip, ip_connections, MAX_CONNECTIONS, CONNECTION_TIME_WINDOW):
             write_log("ALERT", f"Suspicious activity detected: Too many connections from {self.remote_ip}")
             print(Fore.RED + f"Suspicious activity detected: Too many connections from {self.remote_ip}" + Style.RESET_ALL)
@@ -73,17 +67,15 @@ class CustomFTPHandler(FTPHandler):
         """Se llama en cada comando recibido del cliente."""
         write_log("COMMAND", f"Command received: {command} {args}")
 
-        # Detecta comandos repetitivos en un intervalo corto
         if is_suspicious(self.remote_ip, command_activity, COMMAND_THRESHOLD, COMMAND_TIME_WINDOW):
             write_log("ALERT", f"Suspicious activity detected: Command flood from {self.remote_ip}")
             print(Fore.RED + f"Suspicious activity detected: Command flood from {self.remote_ip}" + Style.RESET_ALL)
 
-# Configuración del servidor FTP
 def start_ftp_server():
     authorizer = DummyAuthorizer()
-    ftp_root = "ftp_root"  # Directorio raíz del servidor FTP
-    os.makedirs(ftp_root, exist_ok=True)  # Crea el directorio si no existe
-    authorizer.add_user("user", "password", ftp_root, perm="elradfmw")  # Usuario FTP
+    ftp_root = "ftp_root"  
+    os.makedirs(ftp_root, exist_ok=True) 
+    authorizer.add_user("user", "password", ftp_root, perm="elradfmw")  
 
     handler = CustomFTPHandler
     handler.authorizer = authorizer
@@ -93,7 +85,6 @@ def start_ftp_server():
     write_log("SERVICE", "FTP server started on port 21.")
     ftp_server.serve_forever()
 
-# Función principal para iniciar el servidor FTP
 def start_server():
     ftp_thread = threading.Thread(target=start_ftp_server, daemon=True)
     ftp_thread.start()

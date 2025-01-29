@@ -1,9 +1,8 @@
 import sys
 import os
 from colorama import Fore, Style, init
-from getpass import getpass  # Importa getpass para capturar contraseñas de forma oculta
+from getpass import getpass 
 
-# Añade el directorio padre al PATH
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
 sys.path.append(parent_dir)
@@ -13,7 +12,7 @@ from Libs.Scanner.scanner import scanner
 from Libs.Communication.communication import connect_ftp_server
 from Libs.Password.password import password_manager
 
-init()  # Inicializa el módulo colorama
+init() 
 
 if __name__ == "__main__":
     welcome_message()

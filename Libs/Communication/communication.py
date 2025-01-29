@@ -10,9 +10,9 @@ def connect_to_server(host, port, really_connect):
         return None, really_connect
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.settimeout(5)  # Configura un timeout de 5 segundos
+    client_socket.settimeout(5) 
     try:
-        client_socket.connect((host, port))  # Establece la conexión
+        client_socket.connect((host, port)) 
         print(Fore.GREEN + f"Connected to the Honeypot server at {host}:{port}." + Style.RESET_ALL)
         return client_socket, 1
     except ConnectionRefusedError:
@@ -23,14 +23,13 @@ def connect_to_server(host, port, really_connect):
 
 def disconnect_from_server(client_socket):
     try:
-        client_socket.sendall("DISCONNECT".encode())  # Envía el mensaje
+        client_socket.sendall("DISCONNECT".encode())
         print(Fore.RED + "Disconnecting from the Honeypot server." + Style.RESET_ALL)
     except (socket.error, socket.timeout):
         print(Fore.RED + "Error while disconnecting from the Honeypot server." + Style.RESET_ALL)
     finally:
-        client_socket.close()  # Cierra el socket
+        client_socket.close() 
 
-# Conexión y manejo de FTP
 def connect_ftp_server(host, port, username, password):
     try:
         ftp = FTP()
