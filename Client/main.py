@@ -25,20 +25,20 @@ if __name__ == "__main__":
         print("\t3. Password Manager")
         print("\t4. Exit")
 
-        opcion_menu = input(Fore.CYAN + "\nEnter your choice (1/2/3): " + Style.RESET_ALL)
+        menu_choice = input(Fore.CYAN + "\nEnter your choice (1/2/3): " + Style.RESET_ALL)
 
-        if opcion_menu == "1":
+        if menu_choice == "1":
             scanner()
-        elif opcion_menu == "2":
+        elif menu_choice == "2":
             welcome_message_honeypot()
             host = input(Fore.YELLOW + "\nFTP Server Address: " + Style.RESET_ALL).strip()
             port = int(input(Fore.YELLOW + "FTP Port (default 21): " + Style.RESET_ALL).strip() or 21)
             username = input(Fore.YELLOW + "FTP Username: " + Style.RESET_ALL).strip()
-            password = getpass(Fore.YELLOW + "FTP Password: " + Style.RESET_ALL)  # Usa getpass para la contraseña
+            password = getpass(Fore.YELLOW + "FTP Password: " + Style.RESET_ALL)  # Use getpass so the password is not echoed
             connect_ftp_server(host, port, username, password)
-        elif opcion_menu == "3":
+        elif menu_choice == "3":
             password_manager()
-        elif opcion_menu == "4":
+        elif menu_choice == "4":
             print_goodbye()
             break
         else:

@@ -3,23 +3,23 @@ from datetime import datetime
 from colorama import Fore, Style
 from Libs.Utils.utils import create_log_directory
 
-def generate_report_html(resultados, ip):
+def generate_report_html(results, ip):
     create_log_directory()
-    nombre_archivo = f"logs/reporte_{ip.replace('.', '_')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.html"
-    with open(nombre_archivo, "w") as archivo:
-        archivo.write("<html><head><title>Reporte de Escaneo de Puertos</title></head><body>")
-        archivo.write(f"<h1>Reporte de Escaneo de Puertos para {ip}</h1>")
-        archivo.write("<table border='1'><tr><th>Puerto</th><th>Estado</th></tr>")
-        for puerto, estado in resultados:
-            archivo.write(f"<tr><td>{puerto}</td><td>{estado}</td></tr>")
-        archivo.write("</table></body></html>")
-    print(Fore.CYAN + f"HTML report generated: {nombre_archivo}" + Style.RESET_ALL)
+    filename = f"logs/report_{ip.replace('.', '_')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.html"
+    with open(filename, "w") as file:
+        file.write("<html><head><title>Port Scan Report</title></head><body>")
+        file.write(f"<h1>Port Scan Report for {ip}</h1>")
+        file.write("<table border='1'><tr><th>Port</th><th>Status</th></tr>")
+        for port, status in results:
+            file.write(f"<tr><td>{port}</td><td>{status}</td></tr>")
+        file.write("</table></body></html>")
+    print(Fore.CYAN + f"HTML report generated: {filename}" + Style.RESET_ALL)
 
-def generate_report_csv(resultados, ip):
+def generate_report_csv(results, ip):
     create_log_directory()
-    nombre_archivo = f"logs/reporte_{ip.replace('.', '_')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
-    with open(nombre_archivo, "w", newline="") as archivo:
-        escritor = csv.writer(archivo)
-        escritor.writerow(["Puerto", "Estado"])
-        escritor.writerows(resultados)
-    print(Fore.CYAN + f"CSV report generated: {nombre_archivo}" + Style.RESET_ALL)
+    filename = f"logs/report_{ip.replace('.', '_')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
+    with open(filename, "w", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerow(["Port", "Status"])
+        writer.writerows(results)
+    print(Fore.CYAN + f"CSV report generated: {filename}" + Style.RESET_ALL)

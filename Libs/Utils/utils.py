@@ -47,14 +47,14 @@ def print_goodbye():
 def create_log_directory():
     if not os.path.exists("logs"):
         os.makedirs("logs")
-        print(Fore.CYAN + "Directorio 'logs' creado." + Style.RESET_ALL)
+        print(Fore.CYAN + "'logs' directory created." + Style.RESET_ALL)
 
 def print_underline():
     print(Fore.YELLOW + "\n---------------------------------------------------------------------" + Style.RESET_ALL)
 
-# Función para escribir en el log
+# Function to write to the log file
 def write_log(event_type, message):
-    os.makedirs("Logs", exist_ok=True)  # Crea la carpeta si no existe
+    os.makedirs("Logs", exist_ok=True)  # Create the folder if it does not exist
     with open("Logs/logs.txt", "a") as log_file:
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         log_file.write(f"[{timestamp}] EVENT: {event_type} - {message}\n")
