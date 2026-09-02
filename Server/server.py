@@ -25,7 +25,7 @@ def write_log(event_type, message):
         log_file.write(f"[{timestamp}] EVENT: {event_type} - {message}\n")
 
 def is_suspicious(ip, activity_log, threshold, time_window):
-    """Detecta comportamiento sospechoso basado en actividad reciente."""
+    """Detect suspicious behavior based on recent activity."""
     now = datetime.now()
     activity_log[ip] = [t for t in activity_log[ip] if (now - t).seconds <= time_window]
     activity_log[ip].append(now)
@@ -34,7 +34,7 @@ def is_suspicious(ip, activity_log, threshold, time_window):
 
 class CustomFTPHandler(FTPHandler):
     def on_connect(self):
-        """Se llama cuando un cliente se conecta al servidor."""
+        """Called when a client connects to the server."""
         client_info = f"{self.remote_ip}:{self.remote_port}"
         write_log("CONNECT", f"Client connected: {client_info}")
 
@@ -43,28 +43,28 @@ class CustomFTPHandler(FTPHandler):
             print(Fore.RED + f"Suspicious activity detected: Too many connections from {self.remote_ip}" + Style.RESET_ALL)
 
     def on_disconnect(self):
-        """Se llama cuando un cliente se desconecta del servidor."""
+        """Called when a client disconnects from the server."""
         client_info = f"{self.remote_ip}:{self.remote_port}"
         write_log("DISCONNECT", f"Client disconnected: {client_info}")
 
     def on_login(self, username):
-        """Se llama cuando un usuario inicia sesión correctamente."""
+        """Called when a user logs in successfully."""
         write_log("LOGIN", f"User logged in: {username}")
 
     def on_logout(self, username):
-        """Se llama cuando un usuario cierra sesión."""
+        """Called when a user logs out."""
         write_log("LOGOUT", f"User logged out: {username}")
 
     def on_file_received(self, file):
-        """Se llama cuando un archivo es recibido con éxito."""
+        """Called when a file is received successfully."""
         write_log("UPLOAD", f"File uploaded: {file}")
 
     def on_file_sent(self, file):
-        """Se llama cuando un archivo es enviado con éxito."""
+        """Called when a file is sent successfully."""
         write_log("DOWNLOAD", f"File downloaded: {file}")
 
     def on_command(self, command, args):
-        """Se llama en cada comando recibido del cliente."""
+        """Called on every command received from the client."""
         write_log("COMMAND", f"Command received: {command} {args}")
 
         if is_suspicious(self.remote_ip, command_activity, COMMAND_THRESHOLD, COMMAND_TIME_WINDOW):

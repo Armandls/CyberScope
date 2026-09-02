@@ -1,14 +1,18 @@
-# Ignorar carpetas de Python
+# Ignore Python cache folders
 __pycache__/
 *.pyc
 
-# Ignorar archivos de logs
+# Ignore log files
 logs/
 
-# Ignorar configuraciones del entorno virtual
+# Ignore virtual environment settings
 venv/
 .env
 
-# Ignorar configuraciones del editor
+# Ignore editor settings
 .vscode/
 *.swp
+
+# Ignore password manager secrets (never commit these)
+secret.key
+passwords.enc
